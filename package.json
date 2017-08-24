@@ -1,0 +1,32 @@
+{
+  "name": "react-mobx-realworld-example-app",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://react-mobx.realworld.io",
+  "devDependencies": {
+    "custom-react-scripts": "0.2.0",
+    "gh-pages": "^1.0.0"
+  },
+  "dependencies": {
+    "history": "4.6.3",
+    "marked": "^0.3.6",
+    "mobx": "^3.2.2",
+    "mobx-react": "^4.2.2",
+    "promise.prototype.finally": "^3.0.0",
+    "prop-types": "^15.5.10",
+    "query-string": "5.0.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-router-dom": "4.1.2",
+    "superagent": "^3.6.0",
+    "superagent-promise": "^1.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  }
+}
