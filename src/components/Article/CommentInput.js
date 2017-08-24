@@ -1,12 +1,12 @@
-import React from 'react';
-import { inject } from 'mobx-react';
+import React from "react";
+import { inject } from "mobx-react";
 
-@inject('commentsStore')
+@inject("commentsStore")
 export default class CommentInput extends React.Component {
   constructor() {
     super();
     this.state = {
-      body: ''
+      body: ""
     };
 
     this.handleBodyChange = ev => {
@@ -15,8 +15,9 @@ export default class CommentInput extends React.Component {
 
     this.createComment = ev => {
       ev.preventDefault();
-      this.props.commentsStore.createComment({ body: this.state.body })
-        .then(() => this.setState({ body: '' }));
+      this.props.commentsStore
+        .createComment({ body: this.state.body })
+        .then(() => this.setState({ body: "" }));
     };
   }
 
@@ -25,7 +26,8 @@ export default class CommentInput extends React.Component {
     return (
       <form className="card comment-form" onSubmit={this.createComment}>
         <div className="card-block">
-          <textarea className="form-control"
+          <textarea
+            className="form-control"
             placeholder="Write a comment..."
             value={this.state.body}
             disabled={isCreatingComment}
@@ -39,10 +41,7 @@ export default class CommentInput extends React.Component {
             className="comment-author-img"
             alt=""
           />
-          <button
-            className="btn btn-sm btn-primary"
-            type="submit"
-          >
+          <button className="btn btn-sm btn-primary" type="submit">
             Post Comment
           </button>
         </div>

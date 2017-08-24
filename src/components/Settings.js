@@ -1,20 +1,20 @@
-import ListErrors from './ListErrors';
-import React from 'react';
-import { Redirect } from 'react-router-dom';
-import { inject, observer } from 'mobx-react';
+import ListErrors from "./ListErrors";
+import React from "react";
+import { Redirect } from "react-router-dom";
+import { inject, observer } from "mobx-react";
 
-@inject('userStore')
+@inject("userStore")
 @observer
 class SettingsForm extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      image: '',
-      username: '',
-      bio: '',
-      email: '',
-      password: ''
+      image: "",
+      username: "",
+      bio: "",
+      email: "",
+      password: ""
     };
 
     this.updateState = field => ev => {
@@ -38,9 +38,9 @@ class SettingsForm extends React.Component {
   componentWillMount() {
     if (this.props.userStore.currentUser) {
       Object.assign(this.state, {
-        image: this.props.userStore.currentUser.image || '',
+        image: this.props.userStore.currentUser.image || "",
         username: this.props.userStore.currentUser.username,
-        bio: this.props.userStore.currentUser.bio || '',
+        bio: this.props.userStore.currentUser.bio || "",
         email: this.props.userStore.currentUser.email
       });
     }
@@ -50,14 +50,13 @@ class SettingsForm extends React.Component {
     return (
       <form onSubmit={this.submitForm}>
         <fieldset>
-
           <fieldset className="form-group">
             <input
               className="form-control"
               type="text"
               placeholder="URL of profile picture"
               value={this.state.image}
-              onChange={this.updateState('image')}
+              onChange={this.updateState("image")}
             />
           </fieldset>
 
@@ -67,7 +66,7 @@ class SettingsForm extends React.Component {
               type="text"
               placeholder="Username"
               value={this.state.username}
-              onChange={this.updateState('username')}
+              onChange={this.updateState("username")}
             />
           </fieldset>
 
@@ -77,9 +76,8 @@ class SettingsForm extends React.Component {
               rows="8"
               placeholder="Short bio about you"
               value={this.state.bio}
-              onChange={this.updateState('bio')}
-            >
-            </textarea>
+              onChange={this.updateState("bio")}
+            />
           </fieldset>
 
           <fieldset className="form-group">
@@ -88,7 +86,7 @@ class SettingsForm extends React.Component {
               type="email"
               placeholder="Email"
               value={this.state.email}
-              onChange={this.updateState('email')}
+              onChange={this.updateState("email")}
             />
           </fieldset>
 
@@ -98,7 +96,7 @@ class SettingsForm extends React.Component {
               type="password"
               placeholder="New Password"
               value={this.state.password}
-              onChange={this.updateState('password')}
+              onChange={this.updateState("password")}
             />
           </fieldset>
 
@@ -109,17 +107,15 @@ class SettingsForm extends React.Component {
           >
             Update Settings
           </button>
-
         </fieldset>
       </form>
     );
   }
 }
 
-@inject('userStore', 'authStore')
+@inject("userStore", "authStore")
 @observer
 class Settings extends React.Component {
-
   handleClickLogout = () => this.props.authStore.logout();
 
   render() {
@@ -130,18 +126,18 @@ class Settings extends React.Component {
         <div className="container page">
           <div className="row">
             <div className="col-md-6 offset-md-3 col-xs-12">
-
               <h1 className="text-xs-center">Your Settings</h1>
 
               <ListErrors errors={this.props.userStore.updatingUserErrors} />
 
               <SettingsForm
                 currentUser={this.props.userStore.currentUser}
-                onSubmitForm={user => this.props.userStore.updateUser(user)} />
+                onSubmitForm={user => this.props.userStore.updateUser(user)}
+              />
 
               <hr />
 
-              { goHome && <Redirect to="/" /> }
+              {goHome && <Redirect to="/" />}
 
               <button
                 className="btn btn-outline-danger"
@@ -149,7 +145,6 @@ class Settings extends React.Component {
               >
                 Or click here to logout.
               </button>
-
             </div>
           </div>
         </div>

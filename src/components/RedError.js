@@ -1,18 +1,18 @@
-import React from 'react';
+import React from "react";
 
 const wrapperStyle = {
-  display: 'flex',
-  justifyContent: 'center',
+  display: "flex",
+  justifyContent: "center"
 };
 
-const errorStyle  = {
-  display: 'inline-block',
-  margin: '20px auto',
-  borderRadius: '4px',
-  padding: '8px 15px',
-  color: 'rgb(240, 45, 45)',
-  fontWeight: 'bold',
-  backgroundColor: 'rgba(240, 45, 45, 0.1)'
+const errorStyle = {
+  display: "inline-block",
+  margin: "20px auto",
+  borderRadius: "4px",
+  padding: "8px 15px",
+  color: "rgb(240, 45, 45)",
+  fontWeight: "bold",
+  backgroundColor: "rgba(240, 45, 45, 0.1)"
 };
 
 export default class RedError extends React.Component {

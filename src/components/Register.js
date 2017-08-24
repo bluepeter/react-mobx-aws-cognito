@@ -1,9 +1,9 @@
-import { Link, Redirect } from 'react-router-dom';
-import ListErrors from './ListErrors';
-import React from 'react';
-import { inject, observer } from 'mobx-react';
+import { Link, Redirect } from "react-router-dom";
+import ListErrors from "./ListErrors";
+import React from "react";
+import { inject, observer } from "mobx-react";
 
-@inject('authStore')
+@inject("authStore")
 @observer
 export default class Register extends React.Component {
   constructor() {
@@ -14,7 +14,7 @@ export default class Register extends React.Component {
     this.submitForm = (username, email, password) => ev => {
       ev.preventDefault();
       this.props.onSubmit(username, email, password);
-    }
+    };
   }
 
   componentWillUnmount() {
@@ -24,9 +24,9 @@ export default class Register extends React.Component {
   handleUsernameChange = e => this.props.authStore.setUsername(e.target.value);
   handleEmailChange = e => this.props.authStore.setEmail(e.target.value);
   handlePasswordChange = e => this.props.authStore.setPassword(e.target.value);
-  handleSubmitForm = (e) => {
+  handleSubmitForm = e => {
     e.preventDefault();
-    this.props.authStore.register()
+    this.props.authStore.register();
   };
 
   render() {
@@ -36,22 +36,18 @@ export default class Register extends React.Component {
       <div className="auth-page">
         <div className="container page">
           <div className="row">
-
             <div className="col-md-6 offset-md-3 col-xs-12">
               <h1 className="text-xs-center">Sign Up</h1>
               <p className="text-xs-center">
-                <Link to="login">
-                  Have an account?
-                </Link>
+                <Link to="login">Have an account?</Link>
               </p>
 
               <ListErrors errors={errors} />
 
-              { goHome && <Redirect to="/" /> }
+              {goHome && <Redirect to="/" />}
 
               <form onSubmit={this.handleSubmitForm}>
                 <fieldset>
-
                   <fieldset className="form-group">
                     <input
                       className="form-control form-control-lg"
@@ -89,11 +85,9 @@ export default class Register extends React.Component {
                   >
                     Sign in
                   </button>
-
                 </fieldset>
               </form>
             </div>
-
           </div>
         </div>
       </div>

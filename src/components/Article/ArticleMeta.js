@@ -1,7 +1,7 @@
-import ArticleActions from './ArticleActions';
-import { Link } from 'react-router-dom';
-import React from 'react';
-import { observer } from 'mobx-react';
+import ArticleActions from "./ArticleActions";
+import { Link } from "react-router-dom";
+import React from "react";
+import { observer } from "mobx-react";
 
 const ArticleMeta = observer(props => {
   const article = props.article;
@@ -20,7 +20,11 @@ const ArticleMeta = observer(props => {
         </span>
       </div>
 
-      <ArticleActions canModify={props.canModify} article={article} onDelete={props.onDelete} />
+      <ArticleActions
+        canModify={props.canModify}
+        article={article}
+        onDelete={props.onDelete}
+      />
     </div>
   );
 });
