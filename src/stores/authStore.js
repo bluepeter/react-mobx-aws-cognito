@@ -20,6 +20,12 @@ class AuthStore {
   };
   @observable redirectTo = false;
   @observable message = null;
+  @observable currentUser = null;
+
+  @action
+  setCurrentUser(userName) {
+    this.currentUser = userName;
+  }
 
   @action
   setUsername(username) {
@@ -59,9 +65,10 @@ class AuthStore {
   login() {
     this.inProgress = true;
     this.errors = undefined;
+    const email = this.values.email;
 
     let authenticationDetails = new AWSCognito.AuthenticationDetails({
-      Username: this.values.email,
+      Username: email,
       Password: this.values.password
     });
 
@@ -76,16 +83,19 @@ class AuthStore {
           console.log(
             "access token + " + result.getAccessToken().getJwtToken()
           );
-          return res(result.getAccessToken().getJwtToken());
+          return res();
         },
         onFailure: err => {
           return rej(err);
         }
       });
     })
+      .then(() => {
+        commonStore.setCurrentUser(email);
+      })
       .then(
         action(() => {
-          commonStore.setCurrentUser(this.values.email);
+          this.redirectTo = "/";
         })
       )
       .catch(

@@ -9,10 +9,10 @@ import { withRouter } from "react-router-dom";
 @observer
 export default class Home extends React.Component {
   render() {
-    const { token, appName } = this.props.commonStore;
+    const { appName } = this.props.commonStore;
     return (
       <div className="home-page">
-        <Banner token={token} appName={appName} />
+        <Banner appName={appName} />
 
         <div className="container page">
           <div className="row">
