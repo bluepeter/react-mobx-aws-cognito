@@ -1,4 +1,4 @@
-import ListErrors from "./ListErrors";
+import ListErrors from "../ListErrors";
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { inject, observer } from "mobx-react";

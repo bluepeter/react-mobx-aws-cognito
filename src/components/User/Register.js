@@ -1,5 +1,5 @@
 import { Link, Redirect } from "react-router-dom";
-import ListErrors from "./ListErrors";
+import ListErrors from "../ListErrors";
 import React from "react";
 import { inject, observer } from "mobx-react";
 
@@ -29,7 +29,9 @@ export default class Register extends React.Component {
 
               <ListErrors errors={errors} />
 
-              {redirectTo && <Redirect to={redirectTo} />}
+              {redirectTo &&
+                redirectTo !== this.props.location.pathname &&
+                <Redirect to={redirectTo} />}
 
               <form onSubmit={this.handleSubmitForm}>
                 <fieldset>

@@ -85,7 +85,6 @@ class AuthStore {
         }
       });
     })
-      .then(token => commonStore.setToken(token))
       .catch(
         action(err => {
           this.errors = this.simpleErr(err);

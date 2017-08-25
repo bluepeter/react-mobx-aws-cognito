@@ -3,11 +3,11 @@ import React from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
-import Confirm from "./Confirm";
+import Confirm from "./User/Confirm";
 import Home from "./Home";
-import Login from "./Login";
-import Register from "./Register";
-import Settings from "./Settings";
+import Login from "./User/Login";
+import Register from "./User/Register";
+import Settings from "./User/Settings";
 
 @inject("userStore", "commonStore")
 @withRouter
