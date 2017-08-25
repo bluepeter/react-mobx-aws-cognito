@@ -1,5 +1,4 @@
 import { observable, action, reaction } from "mobx";
-import agent from "../agent";
 
 class CommonStore {
   @observable appName = "Cognito.React";
