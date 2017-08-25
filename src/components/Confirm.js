@@ -1,20 +1,16 @@
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import ListErrors from "./ListErrors";
 import React from "react";
 import { inject, observer } from "mobx-react";
 
 @inject("authStore")
 @observer
-export default class Login extends React.Component {
-  componentWillUnmount() {
-    this.props.authStore.reset();
-  }
-
+export default class Confirm extends React.Component {
+  handleCodeChange = e => this.props.authStore.setCode(e.target.value);
   handleEmailChange = e => this.props.authStore.setEmail(e.target.value);
-  handlePasswordChange = e => this.props.authStore.setPassword(e.target.value);
   handleSubmitForm = e => {
     e.preventDefault();
-    this.props.authStore.login();
+    this.props.authStore.confirmCode();
   };
 
   render() {
@@ -25,13 +21,9 @@ export default class Login extends React.Component {
         <div className="container page">
           <div className="row">
             <div className="col-md-6 offset-md-3 col-xs-12">
-              <h1 className="text-xs-center">Sign In</h1>
+              <h1 className="text-xs-center">Confirm code</h1>
               <p className="text-xs-center">
-                {values.message
-                  ? <b>
-                      {values.message}
-                    </b>
-                  : <Link to="register">Need an account?</Link>}
+                Check your email for a confirmation code.
               </p>
 
               <ListErrors errors={errors} />
@@ -41,24 +33,23 @@ export default class Login extends React.Component {
                 <Redirect to={redirectTo} />}
 
               <form onSubmit={this.handleSubmitForm}>
+                <fieldset className="form-group">
+                  <input
+                    className="form-control form-control-lg"
+                    type="email"
+                    placeholder="Email"
+                    value={values.email}
+                    onChange={this.handleEmailChange}
+                  />
+                </fieldset>
                 <fieldset>
                   <fieldset className="form-group">
                     <input
                       className="form-control form-control-lg"
-                      type="email"
-                      placeholder="Email"
-                      value={values.email}
-                      onChange={this.handleEmailChange}
-                    />
-                  </fieldset>
-
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      type="password"
-                      placeholder="Password"
-                      value={values.password}
-                      onChange={this.handlePasswordChange}
+                      type="text"
+                      placeholder="Code"
+                      value={values.code}
+                      onChange={this.handleCodeChange}
                     />
                   </fieldset>
 
@@ -67,7 +58,7 @@ export default class Login extends React.Component {
                     type="submit"
                     disabled={inProgress}
                   >
-                    Sign in
+                    Confirm
                   </button>
                 </fieldset>
               </form>

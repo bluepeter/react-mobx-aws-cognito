@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "amazon-cognito-identity-js": "^1.19.0",
-    "aws-sdk": "^2.102.0",
     "history": "4.6.3",
     "marked": "^0.3.6",
     "mobx": "^3.2.2",

@@ -4,6 +4,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
 import Article from "./Article";
+import Confirm from "./Confirm";
 import Editor from "./Editor";
 import Home from "./Home";
 import Login from "./Login";
@@ -35,6 +36,7 @@ export default class App extends React.Component {
           />
           <Switch>
             <Route path="/login" component={Login} />
+            <Route path="/register/confirm" component={Confirm} />
             <Route path="/register" component={Register} />
             <Route path="/editor" component={Editor} />
             <Route path="/editor/:slug" component={Editor} />
