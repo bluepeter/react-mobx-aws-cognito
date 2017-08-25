@@ -3,9 +3,9 @@ import React from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
-import Login from "./User/Login";
-import Confirm from "./User/Confirm";
-import Register from "./User/Register";
+import Login from "./Account/Login";
+import Confirm from "./Account/Confirm";
+import Register from "./Account/Register";
 import Home from "./Home";
 
 @inject("commonStore")

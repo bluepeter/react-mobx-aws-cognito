@@ -9,7 +9,7 @@ import { withRouter } from "react-router-dom";
 @observer
 export default class Home extends React.Component {
   render() {
-    const { tags, token, appName } = this.props.commonStore;
+    const { token, appName } = this.props.commonStore;
     return (
       <div className="home-page">
         <Banner token={token} appName={appName} />
@@ -17,10 +17,6 @@ export default class Home extends React.Component {
         <div className="container page">
           <div className="row">
             <MainView />
-
-            <div className="col-md-3">
-              <div className="sidebar" />
-            </div>
           </div>
         </div>
       </div>
