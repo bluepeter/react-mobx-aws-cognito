@@ -9,12 +9,10 @@ import App from "./components/App";
 
 import authStore from "./stores/authStore";
 import commonStore from "./stores/commonStore";
-import userStore from "./stores/userStore";
 
 const stores = {
   authStore,
-  commonStore,
-  userStore
+  commonStore
 };
 
 // For easier debugging

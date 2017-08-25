@@ -2,46 +2,14 @@ import { observable, action, reaction } from "mobx";
 import agent from "../agent";
 
 class CommonStore {
-  @observable appName = "Conduit";
-  @observable token = window.localStorage.getItem("jwt");
+  @observable appName = "Cognito.React";
   @observable appLoaded = false;
-
-  @observable tags = [];
   @observable isLoadingTags = false;
-
-  constructor() {
-    reaction(
-      () => this.token,
-      token => {
-        if (token) {
-          window.localStorage.setItem("jwt", token);
-        } else {
-          window.localStorage.removeItem("jwt");
-        }
-      }
-    );
-  }
+  @observable currentUser = null;
 
   @action
-  loadTags() {
-    this.isLoadingTags = true;
-    return agent.Tags
-      .getAll()
-      .then(
-        action(({ tags }) => {
-          this.tags = tags;
-        })
-      )
-      .finally(
-        action(() => {
-          this.isLoadingTags = false;
-        })
-      );
-  }
-
-  @action
-  setToken(token) {
-    this.token = token;
+  setCurrentUser(userName) {
+    this.currentUser = userName;
   }
 
   @action

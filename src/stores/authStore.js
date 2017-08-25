@@ -1,6 +1,5 @@
 import { observable, action } from "mobx";
 import agent from "../agent";
-import userStore from "./userStore";
 import commonStore from "./commonStore";
 import * as AWSCognito from "amazon-cognito-identity-js";
 
@@ -85,6 +84,11 @@ class AuthStore {
         }
       });
     })
+      .then(
+        action(() => {
+          commonStore.setCurrentUser(this.values.email);
+        })
+      )
       .catch(
         action(err => {
           this.errors = this.simpleErr(err);
@@ -97,29 +101,6 @@ class AuthStore {
           this.redirectTo = false;
         })
       );
-
-    //return agent.Auth
-    //.login(this.values.email, this.values.password)
-    //.then(({ user }) => commonStore.setToken(user.token))
-    //.then(() => userStore.pullUser())
-    //.then(
-    //action(() => {
-    //this.redirectTo = true;
-    //})
-    //)
-    //.catch(
-    //action(err => {
-    //this.errors =
-    //err.response && err.response.body && err.response.body.errors;
-    //throw err;
-    //})
-    //)
-    //.finally(
-    //action(() => {
-    //this.inProgress = false;
-    //this.redirectTo = false;
-    //})
-    //);
   }
 
   @action
@@ -193,21 +174,7 @@ class AuthStore {
   }
 
   @action
-  logout() {
-    commonStore.setToken(undefined);
-    userStore.forgetUser();
-    return new Promise(res => res())
-      .then(
-        action(() => {
-          this.redirectTo = "/";
-        })
-      )
-      .then(
-        action(() => {
-          this.redirectTo = false;
-        })
-      );
-  }
+  logout() {}
 
   simpleErr(err) {
     return {

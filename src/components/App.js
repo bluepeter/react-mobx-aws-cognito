@@ -1,26 +1,25 @@
-import Header from "./Header";
+import Header from "./lib/Header";
 import React from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
-import Confirm from "./User/Confirm";
-import Home from "./Home";
 import Login from "./User/Login";
+import Confirm from "./User/Confirm";
 import Register from "./User/Register";
-import Settings from "./User/Settings";
+import Home from "./Home";
 
-@inject("userStore", "commonStore")
+@inject("commonStore")
 @withRouter
 @observer
 export default class App extends React.Component {
   componentWillMount() {
-    if (this.props.commonStore.token) {
-      this.props.userStore
-        .pullUser()
-        .finally(() => this.props.commonStore.setAppLoaded());
-    } else {
-      this.props.commonStore.setAppLoaded();
-    }
+    //if (this.props.commonStore.token) {
+    //this.props.userStore
+    //.pullUser()
+    //.finally(() => this.props.commonStore.setAppLoaded());
+    //} else {
+    this.props.commonStore.setAppLoaded();
+    //}
   }
 
   render() {
@@ -35,7 +34,6 @@ export default class App extends React.Component {
             <Route path="/login" component={Login} />
             <Route path="/register/confirm" component={Confirm} />
             <Route path="/register" component={Register} />
-            <Route path="/settings" component={Settings} />
             <Route path="/" component={Home} />
           </Switch>
         </div>
