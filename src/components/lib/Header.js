@@ -35,7 +35,11 @@ const LoggedInView = () => {
     <Navbar.Collapse>
       <Nav pullRight>
         <LinkContainer to="/">
-          <NavItem>Home</NavItem>
+          <NavItem>Dashboard</NavItem>
+        </LinkContainer>
+
+        <LinkContainer to="/settings">
+          <NavItem>Settings</NavItem>
         </LinkContainer>
 
         <LinkContainer to="/logout">
@@ -47,7 +51,7 @@ const LoggedInView = () => {
 };
 
 @inject("commonStore", "authStore")
-class Header extends React.Component {
+export default class Header extends React.Component {
   render() {
     return (
       <Navbar>
@@ -69,5 +73,3 @@ class Header extends React.Component {
     );
   }
 }
-
-export default Header;

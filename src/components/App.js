@@ -7,6 +7,7 @@ import Login from "./Account/Login";
 import Logout from "./Account/Logout";
 import Confirm from "./Account/Confirm";
 import Register from "./Account/Register";
+import Settings from "./Account/Settings";
 import Home from "./Home";
 
 @inject("authStore", "commonStore")
@@ -23,6 +24,7 @@ export default class App extends React.Component {
         <div>
           <Header />
           <Switch>
+            <Route path="/settings" component={Settings} />
             <Route path="/logout" component={Logout} />
             <Route path="/login" component={Login} />
             <Route path="/register/confirm" component={Confirm} />
