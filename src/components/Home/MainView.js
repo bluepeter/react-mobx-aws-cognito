@@ -1,11 +1,16 @@
 import React from "react";
+import { Grid, Row, Col } from "react-bootstrap";
 
 export default class MainView extends React.Component {
   render() {
     return (
-      <div className="col-md-9">
-        <h1>Hello!</h1>
-      </div>
+      <Grid>
+        <Row>
+          <Col xs={12}>
+            <h2>Hello!</h2>
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }

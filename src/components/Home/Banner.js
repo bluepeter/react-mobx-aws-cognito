@@ -1,15 +1,20 @@
 import React from "react";
+import { Jumbotron, Grid, Row, Col } from "react-bootstrap";
 
 const Banner = ({ appName }) => {
   return (
-    <div className="banner">
-      <div className="container">
-        <h1 className="logo-font">
-          {appName.toLowerCase()}
-        </h1>
-        <p>A React.js & AWS Cognito starter.</p>
-      </div>
-    </div>
+    <Jumbotron>
+      <Grid>
+        <Row>
+          <Col xs={12}>
+            <h1>
+              {appName.toLowerCase()}
+            </h1>
+            <p>A React.js & AWS Cognito starter.</p>
+          </Col>
+        </Row>
+      </Grid>
+    </Jumbotron>
   );
 };
 

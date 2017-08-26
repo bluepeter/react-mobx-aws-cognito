@@ -1,71 +1,71 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { inject, observer } from "mobx-react";
+import { inject } from "mobx-react";
+import { Navbar, Nav, NavItem } from "react-bootstrap";
+import { IndexLinkContainer, LinkContainer } from "react-router-bootstrap";
 
 const LoggedOutView = () => {
   return (
-    <ul className="nav navbar-nav pull-xs-right">
-      <li className="nav-item">
-        <Link to="/" className="nav-link">
-          Home
-        </Link>
-      </li>
+    <Nav pullRight>
+      <IndexLinkContainer to="/">
+        <NavItem>Home</NavItem>
+      </IndexLinkContainer>
 
-      <li className="nav-item">
-        <Link to="/login" className="nav-link">
-          Sign in
-        </Link>
-      </li>
+      <LinkContainer to="/login">
+        <NavItem>Sign in</NavItem>
+      </LinkContainer>
 
-      <li className="nav-item">
-        <Link to="/register" className="nav-link">
-          Sign up
-        </Link>
-      </li>
-    </ul>
+      <LinkContainer to="/register">
+        <NavItem>Sign up</NavItem>
+      </LinkContainer>
+    </Nav>
   );
 };
 
-const LoggedInView = props => {
+const LoggedInAccount = props => {
   return (
-    <ul className="nav navbar-nav pull-xs-right">
-      <li className="nav-item">
-        <Link to="/" className="nav-link">
-          Home
-        </Link>
-      </li>
+    <Navbar.Collapse>
+      <Navbar.Text>
+        Logged in as: <b>{props.currentUser}</b>
+      </Navbar.Text>
+    </Navbar.Collapse>
+  );
+};
 
-      <li className="nav-item">
-        <div className="nav-link">
-          Logged in as: <b>{props.currentUser}</b>
-        </div>
-      </li>
+const LoggedInView = () => {
+  return (
+    <Nav pullRight>
+      <LinkContainer to="/">
+        <NavItem>Home</NavItem>
+      </LinkContainer>
 
-      <li className="nav-item">
-        <Link to="/logout" className="nav-link">
-          Logout
-        </Link>
-      </li>
-    </ul>
+      <LinkContainer to="/logout">
+        <NavItem>Logout</NavItem>
+      </LinkContainer>
+    </Nav>
   );
 };
 
 @inject("commonStore", "authStore")
-@observer
 class Header extends React.Component {
   render() {
     return (
-      <nav className="navbar navbar-light">
-        <div className="container">
-          <Link to="/" className="navbar-brand">
-            {this.props.commonStore.appName.toLowerCase()}
-          </Link>
+      <Navbar>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <Link to="/">
+              {this.props.commonStore.appName.toLowerCase()}
+            </Link>
+          </Navbar.Brand>
+        </Navbar.Header>
 
-          {this.props.authStore.currentUser
-            ? <LoggedInView currentUser={this.props.authStore.currentUser} />
-            : <LoggedOutView />}
-        </div>
-      </nav>
+        {this.props.authStore.currentUser
+          ? <div>
+              <LoggedInAccount currentUser={this.props.authStore.currentUser} />
+              <LoggedInView />
+            </div>
+          : <LoggedOutView />}
+      </Navbar>
     );
   }
 }

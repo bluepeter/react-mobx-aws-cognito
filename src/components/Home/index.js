@@ -7,14 +7,10 @@ import { inject } from "mobx-react";
 export default class Home extends React.Component {
   render() {
     return (
-      <div className="home-page">
+      <div>
         <Banner appName={this.props.commonStore.appName} />
 
-        <div className="container page">
-          <div className="row">
-            <MainView />
-          </div>
-        </div>
+        <MainView />
       </div>
     );
   }

@@ -131,9 +131,6 @@ class AuthStore {
     return new Promise((res, rej) => {
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: result => {
-          console.log(
-            "access token + " + result.getAccessToken().getJwtToken()
-          );
           return res();
         },
         onFailure: err => {
@@ -245,9 +242,7 @@ class AuthStore {
         cognitoUser = null;
       }
       this.setCurrentUser(null);
-    })
-      .catch()
-      .finally();
+    });
   }
 
   simpleErr(err) {
