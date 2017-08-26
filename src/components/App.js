@@ -4,33 +4,26 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
 import Login from "./Account/Login";
+import Logout from "./Account/Logout";
 import Confirm from "./Account/Confirm";
 import Register from "./Account/Register";
 import Home from "./Home";
 
-@inject("commonStore")
+@inject("authStore", "commonStore")
 @withRouter
 @observer
 export default class App extends React.Component {
   componentWillMount() {
-    //if (this.props.commonStore.token) {
-    //this.props.userStore
-    //.pullUser()
-    //.finally(() => this.props.commonStore.setAppLoaded());
-    //} else {
-    this.props.commonStore.setAppLoaded();
-    //}
+    this.props.authStore.verifySession();
   }
 
   render() {
     if (this.props.commonStore.appLoaded) {
       return (
         <div>
-          <Header
-            appName={this.props.appName}
-            currentUser={this.props.currentUser}
-          />
+          <Header />
           <Switch>
+            <Route path="/logout" component={Logout} />
             <Route path="/login" component={Login} />
             <Route path="/register/confirm" component={Confirm} />
             <Route path="/register" component={Register} />

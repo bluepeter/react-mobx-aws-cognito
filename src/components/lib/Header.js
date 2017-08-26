@@ -36,7 +36,15 @@ const LoggedInView = props => {
       </li>
 
       <li className="nav-item">
-        Logged in as: <b>{props.currentUser}</b>
+        <div className="nav-link">
+          Logged in as: <b>{props.currentUser}</b>
+        </div>
+      </li>
+
+      <li className="nav-item">
+        <Link to="/logout" className="nav-link">
+          Logout
+        </Link>
       </li>
     </ul>
   );

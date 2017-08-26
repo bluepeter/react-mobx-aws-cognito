@@ -6,6 +6,7 @@ const userPool = new AWSCognito.CognitoUserPool({
   UserPoolId: process.env.REACT_APP_AWS_COGNITO_USER_POOL_ID,
   ClientId: process.env.REACT_APP_AWS_COGNITO_CLIENT_ID
 });
+let cognitoUser = null;
 
 class AuthStore {
   @observable inProgress = false;
@@ -62,6 +63,56 @@ class AuthStore {
   }
 
   @action
+  verifySession() {
+    let hasSession = false;
+    Object.keys(localStorage).every(key => {
+      if (key.match("CognitoIdentityServiceProvider")) {
+        hasSession = true;
+        return;
+      }
+    });
+    return new Promise((res, rej) => {
+      if (hasSession) {
+        cognitoUser = userPool.getCurrentUser();
+        return cognitoUser !== null ? res() : rej();
+      } else {
+        return rej();
+      }
+    })
+      .then(() => {
+        return new Promise((res, rej) => {
+          cognitoUser.getSession((err, session) => {
+            return err ? rej(err) : res();
+          });
+        });
+      })
+      .then(() => {
+        return new Promise((res, rej) => {
+          cognitoUser.getUserAttributes((err, attributes) => {
+            if (err) {
+              return rej(err);
+            }
+            res(attributes);
+          });
+        });
+      })
+      .then(attributes => {
+        return new Promise((res, rej) => {
+          attributes.map(key => {
+            if (key.Name === "email") {
+              this.setCurrentUser(key.Value);
+            }
+          });
+          res();
+        });
+      })
+      .catch()
+      .finally(() => {
+        commonStore.setAppLoaded();
+      });
+  }
+
+  @action
   login() {
     this.inProgress = true;
     this.errors = undefined;
@@ -72,7 +123,7 @@ class AuthStore {
       Password: this.values.password
     });
 
-    let cognitoUser = new AWSCognito.CognitoUser({
+    cognitoUser = new AWSCognito.CognitoUser({
       Username: this.values.email,
       Pool: userPool
     });
@@ -91,7 +142,7 @@ class AuthStore {
       });
     })
       .then(() => {
-        commonStore.setCurrentUser(email);
+        this.setCurrentUser(email);
       })
       .then(
         action(() => {
@@ -123,8 +174,12 @@ class AuthStore {
         this.values.password,
         null,
         null,
-        err => {
-          return err ? rej(err) : res();
+        (err, result) => {
+          if (err) {
+            return rej(err);
+          }
+          cognitoUser = result;
+          res();
         }
       );
     })
@@ -152,7 +207,7 @@ class AuthStore {
     this.inProgress = true;
     this.errors = undefined;
 
-    let cognitoUser = new AWSCognito.CognitoUser({
+    cognitoUser = new AWSCognito.CognitoUser({
       Username: this.values.email,
       Pool: userPool
     });
@@ -183,7 +238,17 @@ class AuthStore {
   }
 
   @action
-  logout() {}
+  logout() {
+    return new Promise((res, rej) => {
+      if (cognitoUser !== null) {
+        cognitoUser.signOut();
+        cognitoUser = null;
+      }
+      this.setCurrentUser(null);
+    })
+      .catch()
+      .finally();
+  }
 
   simpleErr(err) {
     return {

@@ -38,16 +38,6 @@ export default class Register extends React.Component {
                   <fieldset className="form-group">
                     <input
                       className="form-control form-control-lg"
-                      type="text"
-                      placeholder="Username"
-                      value={values.username}
-                      onChange={this.handleUsernameChange}
-                    />
-                  </fieldset>
-
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
                       type="email"
                       placeholder="Email"
                       value={values.email}
