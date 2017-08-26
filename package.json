@@ -4,13 +4,10 @@
   "private": true,
   "homepage": "https://react-mobx.realworld.io",
   "devDependencies": {
-    "custom-react-scripts": "0.2.0",
-    "gh-pages": "^1.0.0"
+    "custom-react-scripts": "0.2.0"
   },
   "dependencies": {
     "amazon-cognito-identity-js": "^1.19.0",
-    "history": "4.6.3",
-    "marked": "^0.3.6",
     "mobx": "^3.2.2",
     "mobx-react": "^4.2.2",
     "promise.prototype.finally": "^3.0.0",
