@@ -32,7 +32,7 @@ export default class Login extends React.Component {
       <Grid>
         <Row>
           <Col xs={12}>
-            <h1>Sign In</h1>
+            <h1>Login</h1>
             <p>
               {values.message
                 ? <b>
@@ -72,7 +72,7 @@ export default class Login extends React.Component {
                 type="submit"
                 disabled={inProgress}
               >
-                Sign in
+                Login
               </Button>
             </form>
           </Col>

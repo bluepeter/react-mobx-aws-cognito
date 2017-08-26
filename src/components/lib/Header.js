@@ -12,7 +12,7 @@ const LoggedOutView = () => {
       </IndexLinkContainer>
 
       <LinkContainer to="/login">
-        <NavItem>Sign in</NavItem>
+        <NavItem>Login</NavItem>
       </LinkContainer>
 
       <LinkContainer to="/register">
