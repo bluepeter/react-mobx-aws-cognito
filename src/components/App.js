@@ -2,7 +2,6 @@ import Header from "./lib/Header";
 import React from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
-import { Grid } from "react-bootstrap";
 
 import Login from "./Account/Login";
 import Logout from "./Account/Logout";

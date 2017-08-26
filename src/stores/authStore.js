@@ -68,8 +68,8 @@ class AuthStore {
     Object.keys(localStorage).every(key => {
       if (key.match("CognitoIdentityServiceProvider")) {
         hasSession = true;
-        return;
       }
+      return key;
     });
     return new Promise((res, rej) => {
       if (hasSession) {
@@ -102,6 +102,7 @@ class AuthStore {
             if (key.Name === "email") {
               this.setCurrentUser(key.Value);
             }
+            return key;
           });
           res();
         });
