@@ -9,7 +9,6 @@ export default class Home extends React.Component {
     return (
       <div>
         <Banner appName={this.props.commonStore.appName} />
-
         <MainView />
       </div>
     );

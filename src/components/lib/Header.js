@@ -24,25 +24,25 @@ const LoggedOutView = () => {
 
 const LoggedInAccount = props => {
   return (
-    <Navbar.Collapse>
-      <Navbar.Text>
-        Logged in as: <b>{props.currentUser}</b>
-      </Navbar.Text>
-    </Navbar.Collapse>
+    <Navbar.Text>
+      Logged in as: <b>{props.currentUser}</b>
+    </Navbar.Text>
   );
 };
 
 const LoggedInView = () => {
   return (
-    <Nav pullRight>
-      <LinkContainer to="/">
-        <NavItem>Home</NavItem>
-      </LinkContainer>
+    <Navbar.Collapse>
+      <Nav pullRight>
+        <LinkContainer to="/">
+          <NavItem>Home</NavItem>
+        </LinkContainer>
 
-      <LinkContainer to="/logout">
-        <NavItem>Logout</NavItem>
-      </LinkContainer>
-    </Nav>
+        <LinkContainer to="/logout">
+          <NavItem>Logout</NavItem>
+        </LinkContainer>
+      </Nav>
+    </Navbar.Collapse>
   );
 };
 
@@ -57,13 +57,13 @@ class Header extends React.Component {
               {this.props.commonStore.appName.toLowerCase()}
             </Link>
           </Navbar.Brand>
+          {this.props.authStore.currentUser &&
+            <LoggedInAccount currentUser={this.props.authStore.currentUser} />}
+          <Navbar.Toggle />
         </Navbar.Header>
 
         {this.props.authStore.currentUser
-          ? <div>
-              <LoggedInAccount currentUser={this.props.authStore.currentUser} />
-              <LoggedInView />
-            </div>
+          ? <LoggedInView />
           : <LoggedOutView />}
       </Navbar>
     );
