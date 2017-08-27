@@ -1,12 +1,13 @@
 import BasicPage from "../lib/BasicPage";
 import React from "react";
-import { inject } from "mobx-react";
+import { inject, observer } from "mobx-react";
 import RedirectIfLoggedOut from "./RedirectIfLoggedOut.js";
 import { Panel, FormGroup, FormControl, Button } from "react-bootstrap";
 
 @inject("authStore")
+@observer
 export default class Settings extends React.Component {
-  componentWillUnmount() {
+  componentWillMount() {
     this.props.authStore.reset();
   }
   handleOldPassChange = e =>

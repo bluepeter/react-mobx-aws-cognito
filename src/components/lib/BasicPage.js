@@ -1,9 +1,10 @@
 import React from "react";
 import ListErrors from "./ListErrors";
 import { Grid, Row, Col, Alert } from "react-bootstrap";
-import { inject } from "mobx-react";
+import { inject, observer } from "mobx-react";
 
 @inject("authStore")
+@observer
 export default class BasicPage extends React.Component {
   render() {
     const props = this.props;
