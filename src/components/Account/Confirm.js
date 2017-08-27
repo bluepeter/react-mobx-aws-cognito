@@ -1,4 +1,4 @@
-import { Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import BasicPage from "../lib/BasicPage";
 import ListErrors from "../lib/ListErrors";
 import React from "react";

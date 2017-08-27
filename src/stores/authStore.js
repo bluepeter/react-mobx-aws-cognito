@@ -13,7 +13,6 @@ class AuthStore {
   @observable errors = undefined;
   @observable
   values = {
-    username: "",
     email: "",
     password: "",
     code: "",
@@ -25,11 +24,6 @@ class AuthStore {
   @action
   setCurrentUser(userName) {
     this.currentUser = userName;
-  }
-
-  @action
-  setUsername(username) {
-    this.values.username = username;
   }
 
   @action
@@ -54,7 +48,7 @@ class AuthStore {
 
   @action
   reset() {
-    this.values.username = "";
+    this.errors = "";
     this.values.email = "";
     this.values.password = "";
     this.values.code = "";

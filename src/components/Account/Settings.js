@@ -116,7 +116,7 @@ import RedirectIfLoggedOut from "./RedirectIfLoggedOut.js";
 @inject("authStore")
 export default class Settings extends React.Component {
   render() {
-    const { values, errors, inProgress, redirectTo } = this.props.authStore;
+    const { values, errors, inProgress } = this.props.authStore;
 
     return (
       <BasicPage title="Your Settings">
