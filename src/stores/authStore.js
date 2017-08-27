@@ -19,7 +19,6 @@ class AuthStore {
     code: "",
     message: ""
   };
-  @observable redirectTo = false;
   @observable message = null;
   @observable currentUser = null;
 
@@ -142,11 +141,6 @@ class AuthStore {
       .then(() => {
         this.setCurrentUser(email);
       })
-      .then(
-        action(() => {
-          this.redirectTo = "/";
-        })
-      )
       .catch(
         action(err => {
           this.errors = this.simpleErr(err);
@@ -156,7 +150,6 @@ class AuthStore {
       .finally(
         action(() => {
           this.inProgress = false;
-          this.redirectTo = false;
         })
       );
   }
@@ -181,11 +174,6 @@ class AuthStore {
         }
       );
     })
-      .then(
-        action(() => {
-          this.redirectTo = "/register/confirm";
-        })
-      )
       .catch(
         action(err => {
           this.errors = this.simpleErr(err);
@@ -195,7 +183,6 @@ class AuthStore {
       .finally(
         action(() => {
           this.inProgress = false;
-          this.redirectTo = false;
         })
       );
   }
@@ -218,7 +205,6 @@ class AuthStore {
       .then(
         action(() => {
           this.setMessage("You're confirmed! Please login...");
-          this.redirectTo = "/login";
         })
       )
       .catch(
@@ -230,7 +216,6 @@ class AuthStore {
       .finally(
         action(() => {
           this.inProgress = false;
-          this.redirectTo = false;
         })
       );
   }

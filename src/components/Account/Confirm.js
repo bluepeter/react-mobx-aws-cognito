@@ -1,4 +1,4 @@
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import BasicPage from "../lib/BasicPage";
 import ListErrors from "../lib/ListErrors";
 import React from "react";
@@ -6,27 +6,26 @@ import { inject, observer } from "mobx-react";
 import { FormGroup, FormControl, Button } from "react-bootstrap";
 
 @inject("authStore")
+@withRouter
 @observer
 export default class Confirm extends React.Component {
   handleCodeChange = e => this.props.authStore.setCode(e.target.value);
   handleEmailChange = e => this.props.authStore.setEmail(e.target.value);
   handleSubmitForm = e => {
     e.preventDefault();
-    this.props.authStore.confirmCode();
+    this.props.authStore
+      .confirmCode()
+      .then(() => this.props.history.replace("/login"));
   };
 
   render() {
-    const { values, errors, inProgress, redirectTo } = this.props.authStore;
+    const { values, errors, inProgress } = this.props.authStore;
 
     return (
       <BasicPage title="Confirm code">
         <p>Check your email for a confirmation code.</p>
 
         <ListErrors errors={errors} />
-
-        {redirectTo &&
-          redirectTo !== this.props.location.pathname &&
-          <Redirect to={redirectTo} />}
 
         <form onSubmit={this.handleSubmitForm}>
           <FormGroup>

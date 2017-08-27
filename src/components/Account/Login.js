@@ -1,4 +1,4 @@
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import ListErrors from "../lib/ListErrors";
 import BasicPage from "../lib/BasicPage";
 import React from "react";
@@ -6,6 +6,7 @@ import { inject, observer } from "mobx-react";
 import { FormGroup, FormControl, Button } from "react-bootstrap";
 
 @inject("authStore")
+@withRouter
 @observer
 export default class Login extends React.Component {
   componentWillUnmount() {
@@ -16,11 +17,11 @@ export default class Login extends React.Component {
   handlePasswordChange = e => this.props.authStore.setPassword(e.target.value);
   handleSubmitForm = e => {
     e.preventDefault();
-    this.props.authStore.login();
+    this.props.authStore.login().then(() => this.props.history.replace("/"));
   };
 
   render() {
-    const { values, errors, inProgress, redirectTo } = this.props.authStore;
+    const { values, errors, inProgress } = this.props.authStore;
 
     return (
       <BasicPage title="Login">
@@ -33,10 +34,6 @@ export default class Login extends React.Component {
         </p>
 
         <ListErrors errors={errors} />
-
-        {redirectTo &&
-          redirectTo !== this.props.location.pathname &&
-          <Redirect to={redirectTo} />}
 
         <form onSubmit={this.handleSubmitForm}>
           <FormGroup>
