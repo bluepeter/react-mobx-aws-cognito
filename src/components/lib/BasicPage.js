@@ -1,19 +1,37 @@
 import React from "react";
-import { Grid, Row, Col } from "react-bootstrap";
+import ListErrors from "./ListErrors";
+import { Grid, Row, Col, Alert } from "react-bootstrap";
+import { inject } from "mobx-react";
 
-const BasicPage = props => {
-  return (
-    <Grid>
-      <Row>
-        <Col xs={12}>
-          <h1>
-            {props.title}
-          </h1>
-          {props.children}
-        </Col>
-      </Row>
-    </Grid>
-  );
-};
-
-export default BasicPage;
+@inject("authStore")
+export default class BasicPage extends React.Component {
+  render() {
+    const props = this.props;
+    return (
+      <Grid>
+        <Row>
+          <Col xs={12}>
+            <h1>
+              {props.title}
+            </h1>
+            <ListErrors errors={this.props.authStore.errors} />
+            {this.props.authStore.message &&
+              <Alert bsStyle="success">
+                {this.props.authStore.message}
+              </Alert>}
+            {props.children}
+          </Col>
+        </Row>
+        {props.columnOne &&
+          <Row>
+            <Col xs={6}>
+              {props.columnOne}
+            </Col>
+            <Col xs={6}>
+              {props.columnTwo}
+            </Col>
+          </Row>}
+      </Grid>
+    );
+  }
+}

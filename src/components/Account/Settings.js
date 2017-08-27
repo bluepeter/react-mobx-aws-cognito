@@ -1,134 +1,54 @@
-import ListErrors from "../lib/ListErrors";
 import BasicPage from "../lib/BasicPage";
 import React from "react";
 import { inject } from "mobx-react";
 import RedirectIfLoggedOut from "./RedirectIfLoggedOut.js";
-
-//@inject("authStore")
-//class SettingsForm extends React.Component {
-//constructor() {
-//super();
-
-//this.state = {
-//image: "",
-//username: "",
-//bio: "",
-//email: "",
-//password: ""
-//};
-
-//this.updateState = field => ev => {
-//const state = this.state;
-//const newState = Object.assign({}, state, { [field]: ev.target.value });
-//this.setState(newState);
-//};
-
-//this.submitForm = ev => {
-//ev.preventDefault();
-
-//const user = Object.assign({}, this.state);
-//if (!user.password) {
-//delete user.password;
-//}
-
-//this.props.onSubmitForm(user);
-//};
-//}
-
-//componentWillMount() {
-//if (this.props.userStore.currentUser) {
-//Object.assign(this.state, {
-//image: this.props.userStore.currentUser.image || "",
-//username: this.props.userStore.currentUser.username,
-//bio: this.props.userStore.currentUser.bio || "",
-//email: this.props.userStore.currentUser.email
-//});
-//}
-//}
-
-//render() {
-//return (
-//<form onSubmit={this.submitForm}>
-//<fieldset>
-//<fieldset className="form-group">
-//<input
-//className="form-control"
-//type="text"
-//placeholder="URL of profile picture"
-//value={this.state.image}
-//onChange={this.updateState("image")}
-///>
-//</fieldset>
-
-//<fieldset className="form-group">
-//<input
-//className="form-control form-control-lg"
-//type="text"
-//placeholder="Username"
-//value={this.state.username}
-//onChange={this.updateState("username")}
-///>
-//</fieldset>
-
-//<fieldset className="form-group">
-//<textarea
-//className="form-control form-control-lg"
-//rows="8"
-//placeholder="Short bio about you"
-//value={this.state.bio}
-//onChange={this.updateState("bio")}
-///>
-//</fieldset>
-
-//<fieldset className="form-group">
-//<input
-//className="form-control form-control-lg"
-//type="email"
-//placeholder="Email"
-//value={this.state.email}
-//onChange={this.updateState("email")}
-///>
-//</fieldset>
-
-//<fieldset className="form-group">
-//<input
-//className="form-control form-control-lg"
-//type="password"
-//placeholder="New Password"
-//value={this.state.password}
-//onChange={this.updateState("password")}
-///>
-//</fieldset>
-
-//<button
-//className="btn btn-lg btn-primary pull-xs-right"
-//type="submit"
-//disabled={this.props.userStore.updatingUser}
-//>
-//Update Settings
-//</button>
-//</fieldset>
-//</form>
-//);
-//}
-//}
+import { Panel, FormGroup, FormControl, Button } from "react-bootstrap";
 
 @inject("authStore")
 export default class Settings extends React.Component {
+  componentWillUnmount() {
+    this.props.authStore.reset();
+  }
+  handleOldPassChange = e =>
+    this.props.authStore.setOldPassword(e.target.value);
+  handleNewPassChange = e =>
+    this.props.authStore.setNewPassword(e.target.value);
+  handleSubmitForm = e => {
+    e.preventDefault();
+    this.props.authStore.changePassword().then(() => {});
+  };
+
   render() {
-    const { values, errors, inProgress } = this.props.authStore;
+    const { values, inProgress } = this.props.authStore;
+
+    const columnOne = (
+      <Panel header={<h3>Change password</h3>}>
+        <form onSubmit={this.handleSubmitForm}>
+          <FormGroup>
+            <FormControl
+              type="password"
+              placeholder="Old password"
+              onChange={this.handleOldPassChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <FormControl
+              type="password"
+              placeholder="New password"
+              onChange={this.handleNewPassChange}
+            />
+          </FormGroup>
+          <Button type="submit" disabled={inProgress}>
+            Submit
+          </Button>
+        </form>
+      </Panel>
+    );
 
     return (
-      <BasicPage title="Your Settings">
+      <BasicPage title="Account Settings" columnOne={columnOne}>
         <RedirectIfLoggedOut />
-        <div>Some content here.</div>
-        <ListErrors errors={errors} />
       </BasicPage>
     );
   }
 }
-//<ListErrors errors={this.props.userStore.updatingUserErrors} />
-//<SettingsForm
-//currentUser={this.props.userStore.currentUser}
-//onSubmitForm={user => this.props.userStore.updateUser(user)}
-///>

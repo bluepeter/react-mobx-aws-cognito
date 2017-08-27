@@ -15,11 +15,12 @@ class AuthStore {
   values = {
     email: "",
     password: "",
-    code: "",
-    message: ""
+    code: ""
   };
   @observable message = null;
   @observable currentUser = null;
+  @observable oldPassword = "";
+  @observable newPassword = "";
 
   @action
   setCurrentUser(userName) {
@@ -42,17 +43,25 @@ class AuthStore {
   }
 
   @action
+  setOldPassword(password) {
+    this.oldPassword = password;
+  }
+
+  @action
+  setNewPassword(password) {
+    this.newPassword = password;
+  }
+
+  @action
   setMessage(message) {
-    this.values.message = message;
+    this.message = message;
   }
 
   @action
   reset() {
     this.errors = "";
-    this.values.email = "";
-    this.values.password = "";
-    this.values.code = "";
-    this.values.message = "";
+    this.message = "";
+    this.values = {};
   }
 
   @action
@@ -216,13 +225,26 @@ class AuthStore {
 
   @action
   logout() {
-    return new Promise((res, rej) => {
+    return new Promise(res => {
       if (cognitoUser !== null) {
         cognitoUser.signOut();
         cognitoUser = null;
       }
       this.setCurrentUser(null);
+      res();
     });
+  }
+
+  @action
+  changePassword() {
+    this.inProgress = true;
+    this.errors = undefined;
+
+    return new Promise(res => res()).then(
+      action(() => {
+        this.setMessage("Changes saved.");
+      })
+    );
   }
 
   simpleErr(err) {

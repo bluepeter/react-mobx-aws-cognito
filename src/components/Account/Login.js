@@ -1,5 +1,4 @@
 import { Link, withRouter } from "react-router-dom";
-import ListErrors from "../lib/ListErrors";
 import BasicPage from "../lib/BasicPage";
 import React from "react";
 import { inject, observer } from "mobx-react";
@@ -21,19 +20,13 @@ export default class Login extends React.Component {
   };
 
   render() {
-    const { values, errors, inProgress } = this.props.authStore;
+    const { values, inProgress } = this.props.authStore;
 
     return (
       <BasicPage title="Login">
         <p>
-          {values.message
-            ? <b>
-                {values.message}
-              </b>
-            : <Link to="register">Need an account?</Link>}
+          <Link to="register">Need an account?</Link>}
         </p>
-
-        <ListErrors errors={errors} />
 
         <form onSubmit={this.handleSubmitForm}>
           <FormGroup>
