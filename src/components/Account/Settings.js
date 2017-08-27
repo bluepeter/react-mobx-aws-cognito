@@ -2,6 +2,7 @@ import ListErrors from "../lib/ListErrors";
 import BasicPage from "../lib/BasicPage";
 import React from "react";
 import { inject } from "mobx-react";
+import RedirectIfLoggedOut from "./RedirectIfLoggedOut.js";
 
 //@inject("authStore")
 //class SettingsForm extends React.Component {
@@ -115,9 +116,13 @@ import { inject } from "mobx-react";
 @inject("authStore")
 export default class Settings extends React.Component {
   render() {
+    const { values, errors, inProgress, redirectTo } = this.props.authStore;
+
     return (
       <BasicPage title="Your Settings">
+        <RedirectIfLoggedOut />
         <div>Some content here.</div>
+        <ListErrors errors={errors} />
       </BasicPage>
     );
   }
