@@ -34,9 +34,9 @@ const LoggedInView = () => {
   return (
     <Navbar.Collapse>
       <Nav pullRight>
-        <LinkContainer to="/">
+        <IndexLinkContainer to="/">
           <NavItem>Dashboard</NavItem>
-        </LinkContainer>
+        </IndexLinkContainer>
 
         <LinkContainer to="/settings">
           <NavItem>Settings</NavItem>
