@@ -20,9 +20,9 @@ tasks.
   - Logout
   - Verify existing session
   - Change password
+  - Delete account
   - Forgot password (coming soon)
   - Change username (coming soon)
-  - Delete account (coming soon)
 - Includes react-bootstrap.
 - To use, create an AWS Cognito user pool and add configuration details in `.env`
 - `npm start` to run locally.

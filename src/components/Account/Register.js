@@ -31,7 +31,6 @@ export default class Register extends React.Component {
             <FormControl
               type="email"
               placeholder="Email"
-              value={values.email}
               onChange={this.handleEmailChange}
             />
           </FormGroup>
@@ -40,7 +39,6 @@ export default class Register extends React.Component {
             <FormControl
               type="password"
               placeholder="Password"
-              value={values.password}
               onChange={this.handlePasswordChange}
             />
           </FormGroup>

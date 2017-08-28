@@ -9,11 +9,13 @@ export default class ListErrors extends React.Component {
         <Alert bsStyle="warning">
           <ul className="error-messages">
             {Object.keys(errors).map(key => {
-              return (
-                <li key={key}>
-                  {key} {errors[key]}
-                </li>
-              );
+              if (errors[key]) {
+                return (
+                  <li key={key}>
+                    {key}: {errors[key]}
+                  </li>
+                );
+              }
             })}
           </ul>
         </Alert>

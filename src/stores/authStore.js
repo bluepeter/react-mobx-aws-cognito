@@ -21,6 +21,7 @@ class AuthStore {
   @observable currentUser = null;
   @observable oldPassword = "";
   @observable newPassword = "";
+  @observable deleteButton = false;
 
   @action
   setCurrentUser(userName) {
@@ -53,6 +54,11 @@ class AuthStore {
   }
 
   @action
+  setDeleteButton(press) {
+    this.deleteButton = press;
+  }
+
+  @action
   setMessage(message) {
     this.message = message;
   }
@@ -61,7 +67,12 @@ class AuthStore {
   reset() {
     this.errors = "";
     this.message = "";
-    this.values = {};
+    this.values = {
+      email: "",
+      password: "",
+      code: ""
+    };
+    this.deleteButton = false;
   }
 
   @action
@@ -73,46 +84,49 @@ class AuthStore {
       }
       return key;
     });
-    return new Promise((res, rej) => {
-      if (hasSession) {
-        cognitoUser = userPool.getCurrentUser();
-        return cognitoUser !== null ? res() : rej();
-      } else {
-        return rej();
-      }
-    })
-      .then(() => {
-        return new Promise((res, rej) => {
-          cognitoUser.getSession((err, session) => {
-            return err ? rej(err) : res();
-          });
-        });
+    return (
+      new Promise((res, rej) => {
+        if (hasSession) {
+          cognitoUser = userPool.getCurrentUser();
+          return cognitoUser !== null ? res() : rej();
+        } else {
+          return rej();
+        }
       })
-      .then(() => {
-        return new Promise((res, rej) => {
-          cognitoUser.getUserAttributes((err, attributes) => {
-            if (err) {
-              return rej(err);
-            }
-            res(attributes);
+        .then(() => {
+          return new Promise((res, rej) => {
+            cognitoUser.getSession((err, session) => {
+              return err ? rej(err) : res();
+            });
           });
-        });
-      })
-      .then(attributes => {
-        return new Promise((res, rej) => {
-          attributes.map(key => {
-            if (key.Name === "email") {
-              this.setCurrentUser(key.Value);
-            }
-            return key;
+        })
+        .then(() => {
+          return new Promise((res, rej) => {
+            cognitoUser.getUserAttributes((err, attributes) => {
+              if (err) {
+                return rej(err);
+              }
+              res(attributes);
+            });
           });
-          res();
-        });
-      })
-      .catch()
-      .finally(() => {
-        commonStore.setAppLoaded();
-      });
+        })
+        .then(attributes => {
+          return new Promise((res, rej) => {
+            attributes.map(key => {
+              if (key.Name === "email") {
+                this.setCurrentUser(key.Value);
+              }
+              return key;
+            });
+            res();
+          });
+        })
+        // Empty method needed to avoid warning.
+        .catch(() => {})
+        .finally(() => {
+          commonStore.setAppLoaded();
+        })
+    );
   }
 
   @action
@@ -257,6 +271,39 @@ class AuthStore {
           this.setMessage("Changes saved.");
         })
       )
+      .catch(
+        action(err => {
+          this.errors = this.simpleErr(err);
+          throw err;
+        })
+      )
+      .finally(
+        action(() => {
+          this.inProgress = false;
+        })
+      );
+  }
+
+  @action
+  deleteAccount() {
+    this.inProgress = true;
+    this.errors = undefined;
+
+    return new Promise((res, rej) => {
+      if (!this.deleteButton) {
+        return rej({
+          message: "To delete your account please click the checkbox."
+        });
+      }
+      cognitoUser.deleteUser((err, result) => {
+        if (err) {
+          return rej(err);
+        }
+        window.localStorage.clear();
+        this.setCurrentUser(null);
+        return res();
+      });
+    })
       .catch(
         action(err => {
           this.errors = this.simpleErr(err);

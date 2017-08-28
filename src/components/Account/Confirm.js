@@ -9,9 +9,6 @@ import { FormGroup, FormControl, Button } from "react-bootstrap";
 @withRouter
 @observer
 export default class Confirm extends React.Component {
-  componentWillUnmount() {
-    this.props.authStore.reset();
-  }
   handleCodeChange = e => this.props.authStore.setCode(e.target.value);
   handleEmailChange = e => this.props.authStore.setEmail(e.target.value);
   handleSubmitForm = e => {
@@ -43,7 +40,6 @@ export default class Confirm extends React.Component {
             <FormControl
               type="text"
               placeholder="Code"
-              value={values.code}
               onChange={this.handleCodeChange}
             />
           </FormGroup>

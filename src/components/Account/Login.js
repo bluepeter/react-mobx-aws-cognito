@@ -25,7 +25,7 @@ export default class Login extends React.Component {
     return (
       <BasicPage title="Login">
         <p>
-          <Link to="register">Need an account?</Link>}
+          <Link to="register">Need an account?</Link>
         </p>
 
         <form onSubmit={this.handleSubmitForm}>
@@ -42,7 +42,6 @@ export default class Login extends React.Component {
             <FormControl
               type="password"
               placeholder="Password"
-              value={values.password}
               onChange={this.handlePasswordChange}
             />
           </FormGroup>
