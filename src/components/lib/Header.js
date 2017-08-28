@@ -7,10 +7,6 @@ import { IndexLinkContainer, LinkContainer } from "react-router-bootstrap";
 const LoggedOutView = () => {
   return (
     <Nav pullRight>
-      <IndexLinkContainer to="/">
-        <NavItem>Home</NavItem>
-      </IndexLinkContainer>
-
       <LinkContainer to="/login">
         <NavItem>Login</NavItem>
       </LinkContainer>
