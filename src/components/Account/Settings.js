@@ -7,7 +7,7 @@ import { Panel, FormGroup, FormControl, Button } from "react-bootstrap";
 @inject("authStore")
 @observer
 export default class Settings extends React.Component {
-  componentWillMount() {
+  componentWillUnmount() {
     this.props.authStore.reset();
   }
   handleOldPassChange = e =>

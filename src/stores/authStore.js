@@ -240,11 +240,34 @@ class AuthStore {
     this.inProgress = true;
     this.errors = undefined;
 
-    return new Promise(res => res()).then(
-      action(() => {
-        this.setMessage("Changes saved.");
-      })
-    );
+    return new Promise((res, rej) => {
+      cognitoUser.changePassword(
+        this.oldPassword,
+        this.newPassword,
+        (err, result) => {
+          if (err) {
+            return rej(err);
+          }
+          return res();
+        }
+      );
+    })
+      .then(
+        action(() => {
+          this.setMessage("Changes saved.");
+        })
+      )
+      .catch(
+        action(err => {
+          this.errors = this.simpleErr(err);
+          throw err;
+        })
+      )
+      .finally(
+        action(() => {
+          this.inProgress = false;
+        })
+      );
   }
 
   simpleErr(err) {

@@ -1,5 +1,4 @@
 import { Link, withRouter } from "react-router-dom";
-import ListErrors from "../lib/ListErrors";
 import BasicPage from "../lib/BasicPage";
 import React from "react";
 import { inject, observer } from "mobx-react";
@@ -19,7 +18,7 @@ export default class Register extends React.Component {
   };
 
   render() {
-    const { values,  inProgress } = this.props.authStore;
+    const { values, inProgress } = this.props.authStore;
 
     return (
       <BasicPage title="Sign up">

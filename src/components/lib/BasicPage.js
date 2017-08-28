@@ -15,11 +15,21 @@ export default class BasicPage extends React.Component {
             <h1>
               {props.title}
             </h1>
+          </Col>
+        </Row>
+      {( this.props.authStore.message || this.props.authStore.errors) &&
+        <Row>
+          <Col xs={8} xsOffset={2}>
             <ListErrors errors={this.props.authStore.errors} />
             {this.props.authStore.message &&
               <Alert bsStyle="success">
                 {this.props.authStore.message}
               </Alert>}
+          </Col>
+        </Row>}
+
+        <Row>
+          <Col xs={12}>
             {props.children}
           </Col>
         </Row>
