@@ -46,3 +46,5 @@ authentication tasks.
 ![Screenshot](https://user-images.githubusercontent.com/2158187/29740369-866d9832-8a87-11e7-9f1e-e4cd77a54df4.png)
 
 ![Screenshot](https://user-images.githubusercontent.com/2158187/29740368-865b95ba-8a87-11e7-8563-dfeaa4b10e75.png)
+
+![Screenshot](https://user-images.githubusercontent.com/2158187/45244541-1e2aae00-b2ad-11e8-92e2-2f369d20944e.png)
