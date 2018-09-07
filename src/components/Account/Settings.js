@@ -7,7 +7,7 @@ import {
   Panel,
   FormGroup,
   FormControl,
-  Button
+  Button,
 } from "react-bootstrap";
 
 @inject("authStore")
@@ -35,7 +35,7 @@ export default class Settings extends React.Component {
   };
 
   render() {
-    const { values, inProgress } = this.props.authStore;
+    const { inProgress } = this.props.authStore;
 
     const columnOne = (
       <Panel header={<h3>Change password</h3>}>
