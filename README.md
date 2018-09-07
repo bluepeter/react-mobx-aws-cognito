@@ -3,7 +3,8 @@
 This is an authentication-focused single page app starter/seed. This project
 adds AWS Cognito support for authentication. This greatly simplifies and speeds
 up app development as AWS handles all of the tedious back-end related
-authentication tasks.
+authentication tasks. We used this seed ourselves to build the front-end for
+[Fluxguard](https://fluxguard.com).
 
 - React.js and [AWS Cognito](https://aws.amazon.com/cognito/) integration to:
   - Create an account
