@@ -1,5 +1,4 @@
 import ReactDOM from "react-dom";
-import promiseFinally from "promise.prototype.finally";
 import React from "react";
 import { HashRouter } from "react-router-dom";
 import { Provider } from "mobx-react";
@@ -16,8 +15,6 @@ const stores = {
 
 // For easier debugging
 window._____APP_STATE_____ = stores;
-
-promiseFinally.shim();
 
 ReactDOM.render(
   <Provider {...stores}>

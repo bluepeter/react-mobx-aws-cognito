@@ -133,9 +133,7 @@ class AuthStore {
         )
         // Empty method needed to avoid warning.
         .catch(() => {})
-        .finally(() => {
-          commonStore.setAppLoaded();
-        })
+        .finally(() => commonStore.setAppLoaded())
     );
   }
 
@@ -172,11 +170,7 @@ class AuthStore {
           throw err;
         })
       )
-      .finally(
-        action(() => {
-          this.inProgress = false;
-        })
-      );
+      .finally(action(() => (this.inProgress = false)));
   }
 
   @action
@@ -205,11 +199,7 @@ class AuthStore {
           throw err;
         })
       )
-      .finally(
-        action(() => {
-          this.inProgress = false;
-        })
-      );
+      .finally(action(() => (this.inProgress = false)));
   }
 
   @action

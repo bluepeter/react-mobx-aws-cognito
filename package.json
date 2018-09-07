@@ -1,8 +1,8 @@
 {
-  "name": "react-mobx-realworld-example-app",
+  "name": "React MobX Cognito",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://react-mobx.realworld.io",
+  "homepage": "https://github.com/bluepeter/react-mobx-aws-cognito",
   "devDependencies": {
     "custom-react-scripts": "0.2.2"
   },
@@ -10,7 +10,6 @@
     "amazon-cognito-identity-js": "^2.0.23",
     "mobx": "^5.1.0",
     "mobx-react": "^5.2.6",
-    "promise.prototype.finally": "^3.1.0",
     "prop-types": "^15.6.2",
     "react": "^16.5.0",
     "react-bootstrap": "^0.32.4",
