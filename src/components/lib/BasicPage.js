@@ -7,41 +7,34 @@ import { inject, observer } from "mobx-react";
 @observer
 export default class BasicPage extends React.Component {
   render() {
-    const props = this.props;
+    const { title, authStore, children, columnOne, columnTwo } = this.props;
     return (
       <Grid>
         <Row>
           <Col xs={12}>
-            <h1>
-              {props.title}
-            </h1>
+            <h1>{title}</h1>
           </Col>
         </Row>
-      {( this.props.authStore.message || this.props.authStore.errors) &&
-        <Row>
-          <Col xs={8} xsOffset={2}>
-            <ListErrors errors={this.props.authStore.errors} />
-            {this.props.authStore.message &&
-              <Alert bsStyle="success">
-                {this.props.authStore.message}
-              </Alert>}
-          </Col>
-        </Row>}
+        {(authStore.message || authStore.errors) && (
+          <Row>
+            <Col xs={8} xsOffset={2}>
+              <ListErrors errors={authStore.errors} />
+              {authStore.message && (
+                <Alert bsStyle="success">{authStore.message}</Alert>
+              )}
+            </Col>
+          </Row>
+        )}
 
         <Row>
-          <Col xs={12}>
-            {props.children}
-          </Col>
+          <Col xs={12}>{children}</Col>
         </Row>
-        {props.columnOne &&
+        {columnOne && (
           <Row>
-            <Col xs={6}>
-              {props.columnOne}
-            </Col>
-            <Col xs={6}>
-              {props.columnTwo}
-            </Col>
-          </Row>}
+            <Col xs={6}>{columnOne}</Col>
+            <Col xs={6}>{columnTwo}</Col>
+          </Row>
+        )}
       </Grid>
     );
   }

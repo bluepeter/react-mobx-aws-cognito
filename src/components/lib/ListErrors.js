@@ -3,7 +3,7 @@ import { Alert } from "react-bootstrap";
 
 export default class ListErrors extends React.Component {
   render() {
-    const errors = this.props.errors;
+    const { errors } = this.props;
     if (errors) {
       return (
         <Alert bsStyle="warning">

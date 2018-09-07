@@ -18,33 +18,29 @@ const LoggedOutView = () => {
   );
 };
 
-const LoggedInAccount = props => {
-  return (
-    <Navbar.Text>
-      Logged in as: <b>{props.currentUser}</b>
-    </Navbar.Text>
-  );
-};
+const LoggedInAccount = props => (
+  <Navbar.Text>
+    Logged in as: <b>{props.currentUser}</b>
+  </Navbar.Text>
+);
 
-const LoggedInView = () => {
-  return (
-    <Navbar.Collapse>
-      <Nav pullRight>
-        <IndexLinkContainer to="/">
-          <NavItem>Dashboard</NavItem>
-        </IndexLinkContainer>
+const LoggedInView = () => (
+  <Navbar.Collapse>
+    <Nav pullRight>
+      <IndexLinkContainer to="/">
+        <NavItem>Dashboard</NavItem>
+      </IndexLinkContainer>
 
-        <LinkContainer to="/settings">
-          <NavItem>Settings</NavItem>
-        </LinkContainer>
+      <LinkContainer to="/settings">
+        <NavItem>Settings</NavItem>
+      </LinkContainer>
 
-        <LinkContainer to="/logout">
-          <NavItem>Logout</NavItem>
-        </LinkContainer>
-      </Nav>
-    </Navbar.Collapse>
-  );
-};
+      <LinkContainer to="/logout">
+        <NavItem>Logout</NavItem>
+      </LinkContainer>
+    </Nav>
+  </Navbar.Collapse>
+);
 
 @inject("commonStore", "authStore")
 export default class Header extends React.Component {
@@ -53,18 +49,19 @@ export default class Header extends React.Component {
       <Navbar>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">
-              {this.props.commonStore.appName.toLowerCase()}
-            </Link>
+            <Link to="/">{this.props.commonStore.appName.toLowerCase()}</Link>
           </Navbar.Brand>
-          {this.props.authStore.currentUser &&
-            <LoggedInAccount currentUser={this.props.authStore.currentUser} />}
+          {this.props.authStore.currentUser && (
+            <LoggedInAccount currentUser={this.props.authStore.currentUser} />
+          )}
           <Navbar.Toggle />
         </Navbar.Header>
 
-        {this.props.authStore.currentUser
-          ? <LoggedInView />
-          : <LoggedOutView />}
+        {this.props.authStore.currentUser ? (
+          <LoggedInView />
+        ) : (
+          <LoggedOutView />
+        )}
       </Navbar>
     );
   }

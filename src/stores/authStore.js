@@ -4,24 +4,31 @@ import * as AWSCognito from "amazon-cognito-identity-js";
 
 const userPool = new AWSCognito.CognitoUserPool({
   UserPoolId: process.env.REACT_APP_AWS_COGNITO_USER_POOL_ID,
-  ClientId: process.env.REACT_APP_AWS_COGNITO_CLIENT_ID
+  ClientId: process.env.REACT_APP_AWS_COGNITO_CLIENT_ID,
 });
 let cognitoUser = null;
 
 class AuthStore {
-  @observable inProgress = false;
-  @observable errors = undefined;
+  @observable
+  inProgress = false;
+  @observable
+  errors = undefined;
   @observable
   values = {
     email: "",
     password: "",
-    code: ""
+    code: "",
   };
-  @observable message = null;
-  @observable currentUser = null;
-  @observable oldPassword = "";
-  @observable newPassword = "";
-  @observable deleteButton = false;
+  @observable
+  message = null;
+  @observable
+  currentUser = null;
+  @observable
+  oldPassword = "";
+  @observable
+  newPassword = "";
+  @observable
+  deleteButton = false;
 
   @action
   setCurrentUser(userName) {
@@ -70,7 +77,7 @@ class AuthStore {
     this.values = {
       email: "",
       password: "",
-      code: ""
+      code: "",
     };
     this.deleteButton = false;
   }
@@ -93,34 +100,37 @@ class AuthStore {
           return rej();
         }
       })
-        .then(() => {
-          return new Promise((res, rej) => {
-            cognitoUser.getSession((err, session) => {
-              return err ? rej(err) : res();
-            });
-          });
-        })
-        .then(() => {
-          return new Promise((res, rej) => {
-            cognitoUser.getUserAttributes((err, attributes) => {
-              if (err) {
-                return rej(err);
-              }
-              res(attributes);
-            });
-          });
-        })
-        .then(attributes => {
-          return new Promise((res, rej) => {
-            attributes.map(key => {
-              if (key.Name === "email") {
-                this.setCurrentUser(key.Value);
-              }
-              return key;
-            });
-            res();
-          });
-        })
+        .then(
+          () =>
+            new Promise((res, rej) => {
+              cognitoUser.getSession((err, session) => {
+                return err ? rej(err) : res();
+              });
+            })
+        )
+        .then(
+          () =>
+            new Promise((res, rej) => {
+              cognitoUser.getUserAttributes((err, attributes) => {
+                if (err) {
+                  return rej(err);
+                }
+                res(attributes);
+              });
+            })
+        )
+        .then(
+          attributes =>
+            new Promise((res, rej) => {
+              attributes.map(key => {
+                if (key.Name === "email") {
+                  this.setCurrentUser(key.Value);
+                }
+                return key;
+              });
+              res();
+            })
+        )
         // Empty method needed to avoid warning.
         .catch(() => {})
         .finally(() => {
@@ -137,12 +147,12 @@ class AuthStore {
 
     let authenticationDetails = new AWSCognito.AuthenticationDetails({
       Username: email,
-      Password: this.values.password
+      Password: this.values.password,
     });
 
     cognitoUser = new AWSCognito.CognitoUser({
       Username: this.values.email,
-      Pool: userPool
+      Pool: userPool,
     });
 
     return new Promise((res, rej) => {
@@ -152,12 +162,10 @@ class AuthStore {
         },
         onFailure: err => {
           return rej(err);
-        }
+        },
       });
     })
-      .then(() => {
-        this.setCurrentUser(email);
-      })
+      .then(() => this.setCurrentUser(email))
       .catch(
         action(err => {
           this.errors = this.simpleErr(err);
@@ -176,7 +184,7 @@ class AuthStore {
     this.inProgress = true;
     this.errors = undefined;
 
-    return new Promise((res, rej) => {
+    return new Promise((res, rej) =>
       userPool.signUp(
         this.values.email,
         this.values.password,
@@ -189,8 +197,8 @@ class AuthStore {
           cognitoUser = result;
           res();
         }
-      );
-    })
+      )
+    )
       .catch(
         action(err => {
           this.errors = this.simpleErr(err);
@@ -211,30 +219,22 @@ class AuthStore {
 
     cognitoUser = new AWSCognito.CognitoUser({
       Username: this.values.email,
-      Pool: userPool
+      Pool: userPool,
     });
 
-    return new Promise((res, rej) => {
+    return new Promise((res, rej) =>
       cognitoUser.confirmRegistration(this.values.code, true, err => {
         return err ? rej(err) : res();
-      });
-    })
-      .then(
-        action(() => {
-          this.setMessage("You're confirmed! Please login...");
-        })
-      )
+      })
+    )
+      .then(action(() => this.setMessage("You're confirmed! Please login...")))
       .catch(
         action(err => {
           this.errors = this.simpleErr(err);
           throw err;
         })
       )
-      .finally(
-        action(() => {
-          this.inProgress = false;
-        })
-      );
+      .finally(action(() => (this.inProgress = false)));
   }
 
   @action
@@ -266,22 +266,14 @@ class AuthStore {
         }
       );
     })
-      .then(
-        action(() => {
-          this.setMessage("Changes saved.");
-        })
-      )
+      .then(action(() => this.setMessage("Changes saved.")))
       .catch(
         action(err => {
           this.errors = this.simpleErr(err);
           throw err;
         })
       )
-      .finally(
-        action(() => {
-          this.inProgress = false;
-        })
-      );
+      .finally(action(() => (this.inProgress = false)));
   }
 
   @action
@@ -292,7 +284,7 @@ class AuthStore {
     return new Promise((res, rej) => {
       if (!this.deleteButton) {
         return rej({
-          message: "To delete your account please click the checkbox."
+          message: "To delete your account please click the checkbox.",
         });
       }
       cognitoUser.deleteUser((err, result) => {
@@ -310,18 +302,14 @@ class AuthStore {
           throw err;
         })
       )
-      .finally(
-        action(() => {
-          this.inProgress = false;
-        })
-      );
+      .finally(action(() => (this.inProgress = false)));
   }
 
   simpleErr(err) {
     return {
       statusCode: err.statusCode,
       code: err.code,
-      message: err.message
+      message: err.message,
     };
   }
 }
