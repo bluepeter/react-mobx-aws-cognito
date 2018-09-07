@@ -1,4 +1,4 @@
-## React.js, MobX, AWS Cognito
+# React.js, MobX, AWS Cognito
 
 This is an authentication-focused single page app starter/seed. This project
 adds AWS Cognito support for authentication. This greatly simplifies and speeds
@@ -15,10 +15,6 @@ authentication tasks.
   - Delete account
 - Includes react-bootstrap.
 - Check out `package.json` for more stack choices.
-
-![Screenshot](https://user-images.githubusercontent.com/2158187/29740369-866d9832-8a87-11e7-9f1e-e4cd77a54df4.png)
-
-![Screenshot](https://user-images.githubusercontent.com/2158187/29740368-865b95ba-8a87-11e7-8563-dfeaa4b10e75.png)
 
 ### How to use
 
@@ -44,3 +40,9 @@ authentication tasks.
 - `yarn` to install everything
 - `yarn run start` to run locally.
 - Create an account, login, etc!
+
+### Screenshots
+
+![Screenshot](https://user-images.githubusercontent.com/2158187/29740369-866d9832-8a87-11e7-9f1e-e4cd77a54df4.png)
+
+![Screenshot](https://user-images.githubusercontent.com/2158187/29740368-865b95ba-8a87-11e7-8563-dfeaa4b10e75.png)
